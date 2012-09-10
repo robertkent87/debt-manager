@@ -1,0 +1,113 @@
+/* 
+    Document   : style
+    Created on : 24-Aug-2012, 16:28:07
+    Author     : Robert
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+html {
+    background: url(../images/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Droid Sans', sans-serif;
+    background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.3);
+}
+
+.underline {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.modal {
+    width: 638px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Kreon', serif;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+#header {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    box-shadow: none;
+    color: #FEFEFE;
+    padding: 0;
+    text-shadow: 1px 1px 1px #333333;
+    width: 1180px;
+}
+
+#header a {
+    margin-left: 20px;
+}
+
+#login form {
+    float: left;
+    margin-right: 15px;
+    text-align: center;
+}
+
+#login .btn {
+    width: 64px;
+    height: 64px;
+}
+
+#login p {
+    margin-top: 5px;
+}
+
+#dp3, .clonedInput {
+    margin-bottom: 15px;
+}
+
+.chart {
+    width: 100%;
+    max-width: 370px; 
+    height: 400px;
+}
+
+table .header {
+    cursor: pointer;
+    background: url('../images/sort_both.png') no-repeat right center;
+    padding-right: 20px; 
+}
+
+table .headerSortDown{
+    background: url('../images/sort_asc.png') no-repeat right center;
+}
+
+table .headerSortUp {
+    background: url('../images/sort_desc.png') no-repeat right center;
+}
+
+table.table thead .sorting { background: url('images/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('images/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('images/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('images/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('images/sort_desc_disabled.png') no-repeat center right; }
