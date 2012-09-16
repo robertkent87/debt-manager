@@ -1,14 +1,14 @@
 <?php
-include 'config.inc.php';
+include 'header.php';
 include 'users.class.php';
 
 // If form is submitted, process 'login'
-if (isset($_POST['user_id'])):
+if (isset($_POST['user_id'])) {
     setcookie("user_id", $_POST['user_id'], time() + 3600);
     header("Location: dashboard.php");
     exit();
-else:
-    // Connect to database
+} else {
+// Connect to database
     $con = mysql_connect(DB_HOST, DB_USER, DB_PW);
     if (!$con) {
         die('Could not connect: ' . mysql_error());
@@ -18,10 +18,10 @@ else:
 
     $userObj = new User;
 
-    // Get list of users for form
+// Get list of users for form
     $user_arr = User::getAll();
 
-    // Build login form
+// Build login form
 
     $form_str = "<div id=\"login\">";
 
@@ -39,23 +39,32 @@ else:
     }
 
     $form_str .= "</div>";
-
-    include 'header.php';
-    ?>
-    <div id="" class="header container">
-        <h1>Weather Debt Manager</h1>
-        <div id="user">
-            <?php echo $user_str; ?>
-        </div>
-    </div>
-    <div class="container">
-        <h3>Log In</h3>
-
-
-        <?php echo $form_str; ?>
-    </div>
-    <?php
-    include 'footer.php';
-    mysql_close($con);
-endif;
+}
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Weather Debt Manager</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/datepicker.css" media="all" />
+        <link href='http://fonts.googleapis.com/css?family=Kreon:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="" class="header container">
+            <h1>Weather Debt Manager</h1>
+        </div>
+        <div class="container">
+            <h3>Log In</h3>
+            <?php echo $form_str; ?>
+        </div>
+    </body>
+</html>
