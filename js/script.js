@@ -76,7 +76,23 @@ $(document).ready(function(){
                     $('.notification')
                     .html(data)
                     .hide()
-                    .fadeIn(500);   
+                    .fadeIn(1000);   
+                    
+                    // Update debts
+                    $.get('debts.php', function(data) {
+                        $('#debts_cont')
+                            .html(data)
+                            .hide()
+                            .fadeIn(1000);
+                    });
+                    
+                    // Update cheevs
+                    $.get('cheevos.php', function(data) {
+                        $('#cheevos_cont')
+                            .html(data)
+                            .hide()
+                            .fadeIn(1000);
+                    });
                 });
             }  
         });  

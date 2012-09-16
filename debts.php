@@ -1,8 +1,21 @@
+<?php
+include_once 'header.php';
+include_once 'users.class.php';
+include_once 'debts.class.php';
+include_once 'payments.class.php';
+
+if (!isset($userObj)) {
+    $userObj = new User();
+    $userObj->setId($user_id);
+    $userObj->load();
+}
+
+$debtObj = new Debt();
+?>
 <div class="row">
     <div class="span6">
         <h3 class="underline">Owed To You</h3>
         <?php
-        $debtObj = new Debt();
         
         $debt_arr = array();
         $db_debt_arr = $debtObj->getOwedTo($user_id);

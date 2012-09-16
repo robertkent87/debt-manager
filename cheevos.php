@@ -1,7 +1,17 @@
 <?php
-$paymentObj = new Payment();
-$userObj = new User();
-$debtObj = new Debt();
+include_once 'header.php';
+include_once 'users.class.php';
+include_once 'debts.class.php';
+include_once 'payments.class.php';
+
+if (!isset($userObj))
+    $userObj = new User();
+
+if (!isset($paymentObj))
+    $paymentObj = new Payment();
+
+if (!isset($debtObj))
+    $debtObj = new Debt();
 
 $highest_str = "";
 $highest_str_chart = "";
@@ -9,7 +19,7 @@ $highest_data_str = "";
 $user_payments = $paymentObj->getHighest();
 
 foreach ($user_payments as $name => $total) {
-    $highest_str .= "<li><strong>$name</strong> has spent a total of <strong>&pound;".number_format($total, 2)."</strong></li>";
+    $highest_str .= "<li><strong>$name</strong> has spent a total of <strong>&pound;" . number_format($total, 2) . "</strong></li>";
     $highest_data_str .= "['$name',$total],";
 }
 
@@ -76,19 +86,19 @@ foreach ($visits as $visitor => $total_visits) {
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['Name', 'Spent'],
-                    <?php echo $highest_data_str; ?>
-              ]);
+<?php echo $highest_data_str; ?>
+                            ]);
 
-              var options = {
-                  width: 370,
-                  legend:{position:'none'},
-                  chartArea: {'width': '80%', 'height': '80%'},
-                  colors:['#3366CC','#CC3300', '#FF9900']
-              };
+                            var options = {
+                                width: 370,
+                                legend:{position:'none'},
+                                chartArea: {'width': '80%', 'height': '80%'},
+                                colors:['#3366CC','#CC3300', '#FF9900']
+                            };
 
-              var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_1'));
-              chart.draw(data, options);
-          }
+                            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_1'));
+                            chart.draw(data, options);
+                        }
         </script>
         <div id="chart_div_1" class="chart"></div>
     </div>
@@ -104,19 +114,19 @@ foreach ($visits as $visitor => $total_visits) {
             function drawChart() {
                 var data2 = google.visualization.arrayToDataTable([
                     ['Name', 'Visits'],
-                    <?php echo $freq_data_str; ?>
-              ]);
+<?php echo $freq_data_str; ?>
+                            ]);
 
-              var options2 = {
-                  width: 370,
-                  legend:{position:'none'},
-                  chartArea: {'width': '80%', 'height': '80%'},
-                  colors:['#3366CC','#CC3300', '#FF9900']
-              };
+                            var options2 = {
+                                width: 370,
+                                legend:{position:'none'},
+                                chartArea: {'width': '80%', 'height': '80%'},
+                                colors:['#3366CC','#CC3300', '#FF9900']
+                            };
 
-              var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
-              chart2.draw(data2, options2);
-          }
+                            var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
+                            chart2.draw(data2, options2);
+                        }
         </script>
         <div id="chart_div_2" class="chart"></div>
     </div>
@@ -132,19 +142,19 @@ foreach ($visits as $visitor => $total_visits) {
             function drawChart() {
                 var data3 = google.visualization.arrayToDataTable([
                     ['Name', 'Visits'],
-                    <?php echo $visit_data_str; ?>
-              ]);
+<?php echo $visit_data_str; ?>
+                            ]);
 
-              var options3 = {
-                  width: 370,
-                  legend:{position:'none'},
-                  chartArea: {'width': '80%', 'height': '80%'},
-                  colors:['#3366CC','#CC3300', '#FF9900']
-              };
+                            var options3 = {
+                                width: 370,
+                                legend:{position:'none'},
+                                chartArea: {'width': '80%', 'height': '80%'},
+                                colors:['#3366CC','#CC3300', '#FF9900']
+                            };
 
-              var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div_3'));
-              chart3.draw(data3, options3);
-          }
+                            var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div_3'));
+                            chart3.draw(data3, options3);
+                        }
         </script>
         <div id="chart_div_3" class="chart"></div>
     </div>

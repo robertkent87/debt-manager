@@ -1,13 +1,14 @@
 <?php
-include 'header.php';
-include 'users.class.php';
-include 'debts.class.php';
-include 'payments.class.php';
+include_once 'header.php';
+include_once 'users.class.php';
+include_once 'debts.class.php';
+include_once 'payments.class.php';
 
-$userObj = new User();
-
-$userObj->setId($user_id);
-$userObj->load();
+if (!isset($userObj)) {
+    $userObj = new User();
+    $userObj->setId($user_id);
+    $userObj->load();
+}
 ?>
 <!DOCTYPE html>
 <html>
