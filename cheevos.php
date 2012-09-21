@@ -19,7 +19,7 @@ $highest_data_str = "";
 $user_payments = $paymentObj->getHighest();
 
 foreach ($user_payments as $name => $total) {
-    $highest_str .= "<li><strong>$name</strong> has spent a total of <strong>&pound;" . number_format($total, 2) . "</strong></li>";
+    $highest_str .= "<li><strong>$name</strong> has spent a total of <strong>&pound;" . $total . "</strong></li>";
     $highest_data_str .= "['$name',$total],";
 }
 

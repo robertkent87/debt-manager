@@ -19,12 +19,15 @@ if (!isset($userObj)) {
         <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="js/modal-responsive-fix.js"></script>
+        <script type="text/javascript" src="js/touchscroll.js"></script>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="bootstrap/css/datepicker.css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Kreon:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/modal-fix.css" media="all" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>

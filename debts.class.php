@@ -8,14 +8,14 @@ class Debt {
     private $owed_by;
     private $owed_to;
     private $archived;
-    
+
     public function load() {
         $sql = "SELECT id, payment_id, amount, owed_by, owed_to, archived
                 FROM debts
                 WHERE id = " . mysql_real_escape_string($this->getId());
-        
+
         $result = mysql_query($sql);
-        
+
         if (mysql_errno()) {
             return false;
         } else {
@@ -26,7 +26,7 @@ class Debt {
             return true;
         }
     }
-    
+
     public function create() {
         $sql = "INSERT INTO debts (payment_id, amount, owed_by, owed_to, archived)
                     VALUES (
@@ -47,7 +47,7 @@ class Debt {
             return $insertid;
         }
     }
-    
+
     public function update() {
         $sql = "UPDATE debts SET
                 payment_id = '" . mysql_real_escape_string($this->getPayment_id()) . "',
@@ -66,62 +66,64 @@ class Debt {
             return true;
         }
     }
-    
+
     public function getOwedTo($user_id) {
         $arr = array();
         $sql = "SELECT id FROM debts
-                WHERE owed_to = ".  mysql_escape_string($user_id)."
+                WHERE owed_to = " . mysql_escape_string($user_id) . "
+                AND owed_by != " . mysql_escape_string($user_id) . "
                 ORDER BY amount DESC";
 
         $result = mysql_query($sql);
         if (mysql_errno()) {
             echo mysql_error();
-        } 
+        }
         while ($result && $ret = mysql_fetch_row($result)) {
             $arr[] = $ret[0];
         }
         return $arr;
     }
-    
+
     public function getOwedBy($user_id) {
         $arr = array();
         $sql = "SELECT id FROM debts
-                WHERE owed_by = ".  mysql_escape_string($user_id)."
+                WHERE owed_by = " . mysql_escape_string($user_id) . "
+                AND owed_to != " . mysql_escape_string($user_id) . "
                 ORDER BY amount DESC";
 
         $result = mysql_query($sql);
         if (mysql_errno()) {
             echo mysql_error();
-        } 
+        }
         while ($result && $ret = mysql_fetch_row($result)) {
             $arr[] = $ret[0];
         }
         return $arr;
     }
-    
-    public function getDebtsByPayment($payment_id){
+
+    public function getDebtsByPayment($payment_id) {
         $arr = array();
         $sql = "SELECT id FROM debts
-                WHERE payment_id = ".  mysql_escape_string($payment_id);
+                WHERE payment_id = " . mysql_escape_string($payment_id);
 
         $result = mysql_query($sql);
         if (mysql_errno()) {
             echo mysql_error();
-        } 
+        }
         while ($result && $ret = mysql_fetch_row($result)) {
             $arr[] = $ret[0];
         }
         return $arr;
     }
 
-        public function getId() {
+    public function getId() {
         return $this->id;
     }
 
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     public function getPayment_id() {
         return $this->payment_id;
     }
@@ -161,6 +163,7 @@ class Debt {
     public function setArchived($archived) {
         $this->archived = $archived;
     }
+
 }
 
 ?>

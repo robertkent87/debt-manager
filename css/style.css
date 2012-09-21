@@ -37,7 +37,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .underline {
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #CCC;
+    margin: -20px -20px 10px -20px;
+    padding: 20px 0 0 20px;
+    background-image: linear-gradient(bottom, #EEE 0%, white 100%);
+    background-image: -o-linear-gradient(bottom, #EEE 0%, white 100%);
+    background-image: -moz-linear-gradient(bottom, #EEE 0%, white 100%);
+    background-image: -webkit-linear-gradient(bottom, #EEE 0%, white 100%);
+    background-image: -ms-linear-gradient(bottom, #EEE 0%, white 100%);
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .modal {
