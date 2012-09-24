@@ -67,6 +67,24 @@ class Debt {
         }
     }
 
+    public static function getTotalDebts() {
+        $arr = array();
+        $sql = "SELECT u.name, SUM(d.amount) 
+                FROM debts d
+                LEFT JOIN users u
+                ON d.owed_by = u.id
+                GROUP BY d.owed_by
+                ORDER BY SUM(d.amount) DESC";
+        $result = mysql_query($sql);
+        if (mysql_errno()) {
+            echo mysql_error();
+        }
+        while ($result && $ret = mysql_fetch_row($result)) {
+            $arr[$ret[0]] = $ret[1];
+        }
+        return $arr;
+    }
+
     public function getOwedTo($user_id) {
         $arr = array();
         $sql = "SELECT id FROM debts

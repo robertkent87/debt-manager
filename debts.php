@@ -13,10 +13,35 @@ if (!isset($userObj)) {
 $debtObj = new Debt();
 ?>
 <div class="row">
+    <div class="span12">
+        <h3 class="underline">Total Debts</h3>
+        <table id="debt-table" class="table table-striped">
+            <?php 
+            
+            $total_debts = Debt::getTotalDebts();
+            $total_str = "";
+            
+            if(is_array($total_debts) && count($total_debts) > 0){
+                foreach ($total_debts as $total_name => $total_owed) {
+                    $total_str .= "<tr><td>$total_name</td><td>&pound;$total_owed</td></tr>";
+                }
+            }
+            
+            ?>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total Owed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php echo $total_str; ?>
+            </tbody>
+        </table>
+    </div>
     <div class="span6">
-        <h3 class="underline">Owed To You</h3>
+        <h3 class="">Owed To You</h3>
         <?php
-        
         $debt_arr = array();
         $db_debt_arr = $debtObj->getOwedTo($user_id);
 
@@ -40,7 +65,7 @@ $debtObj = new Debt();
     </div>
 
     <div class="span6">
-        <h3 class="underline">Owed By You</h3>
+        <h3 class="">Owed By You</h3>
         <?php
         $owed_arr = array();
         $db_owed_arr = $debtObj->getOwedBy($user_id);
