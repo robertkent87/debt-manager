@@ -75,6 +75,22 @@ class User {
         }
         return $arr;
     }
+    
+    public static function getAllOthers($user_id) {
+        $arr = array();
+        $sql = "SELECT id FROM users
+                WHERE id != $user_id
+                ORDER BY payment_order ASC";
+
+        $result = mysql_query($sql);
+        if (mysql_errno()) {
+            echo mysql_error();
+        } 
+        while ($result && $ret = mysql_fetch_row($result)) {
+            $arr[] = $ret[0];
+        }
+        return $arr;
+    }
 
     public function getId() {
         return $this->id;
