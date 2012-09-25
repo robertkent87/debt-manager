@@ -69,12 +69,19 @@ class Debt {
 
     public static function getTotalDebts() {
         $arr = array();
-        $sql = "SELECT u.name, SUM(d.amount) 
-                FROM debts d
-                LEFT JOIN users u
-                ON d.owed_by = u.id
-                GROUP BY d.owed_by
-                ORDER BY SUM(d.amount) DESC";
+        $sql = "SELECT owed.owed_by, owed.amount - COALESCE(owns.amount, 0) AS `Total Debt`
+                FROM (
+                        SELECT owed_by, SUM(amount) AS amount
+                        FROM debts
+                        GROUP BY owed_by
+                    ) owed
+                    LEFT JOIN (
+                        SELECT owed_to, sum(amount) AS amount
+                        FROM debts
+                        GROUP BY owed_to
+                    ) owns 
+                ON owed.owed_by = owns.owed_to
+                ORDER BY `Total Debt` DESC";
         $result = mysql_query($sql);
         if (mysql_errno()) {
             echo mysql_error();

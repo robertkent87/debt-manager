@@ -32,7 +32,9 @@ foreach ($payments_arr as $payments_id) {
     $payments_str .= "</tr>";
 }
 ?>
-
+<div class="alert">
+    The <strong>Total Paid</strong> column displays the total paid <em>for others.</em>
+</div>
 <table id="payment-table" class="table table-striped">
     <thead>
         <tr>
