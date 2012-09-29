@@ -21,9 +21,14 @@ if (!isset($userObj)) {
         <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="js/modal-responsive-fix.js"></script>
         <script type="text/javascript" src="js/touchscroll.js"></script>
+        <script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+        <script type="text/javascript" src="js/jqplot.barRenderer.min.js"></script>
+        <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="bootstrap/css/datepicker.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Kreon:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />

@@ -54,6 +54,7 @@ $(document).ready(function() {
     // Handle form submission
     $('#modal-form-submit').on('click', function(e) {
         e.preventDefault();
+        
         var data = {
             'user_id[]': [],
             'drinks_owed[]': [],

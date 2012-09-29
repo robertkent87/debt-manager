@@ -13,24 +13,35 @@ if (!isset($paymentObj))
 if (!isset($debtObj))
     $debtObj = new Debt();
 
+//----------------------------------------------------------------------------------------------------------------------
+// Set up 'Most Paid' section
+
 $highest_str = "";
-$highest_str_chart = "";
-$highest_data_str = "";
+$highest_totals = array();
+$highest_people = array();
 $user_payments = $paymentObj->getHighest();
 
 foreach ($user_payments as $name => $total) {
     $highest_str .= "<li><strong>$name</strong> has spent a total of <strong>&pound;" . $total . "</strong></li>";
-    $highest_data_str .= "['$name',$total],";
+    $highest_totals[] = floatval($total);
+    $highest_people[] = $name;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+// Set up 'Otfen Paid' section
 
 $freq_str = "";
-$freq_data_str = "";
+$freq_people = array();
+$freq_times = array();
 $paid_often = $paymentObj->getFrequentPayers();
 foreach ($paid_often as $often_name => $often_times) {
     $freq_str .= "<li><strong>$often_name</strong> has paid a total of <strong>$often_times</strong> times</li>";
-    $freq_data_str .= "['$often_name',$often_times],";
+    $freq_people[] = $often_name;
+    $freq_times[] = intval($often_times);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+// Set up 'Frquent Visits' section
 
 $user_arr = $userObj->getAll();
 $payments_arr = $paymentObj->getAll();
@@ -60,12 +71,14 @@ foreach ($payments_arr as $payments_id) {
 arsort($visits);
 
 $visit_str = "";
-$visit_data_str = "";
+$visit_person = array();
+$visit_times = array();
 $j = 0;
 foreach ($visits as $visitor => $total_visits) {
     if ($j < 3) {
         $visit_str .= "<li><strong>$visitor</strong> has been out a total of <strong>$total_visits</strong> times</li>";
-        $visit_data_str .= "['$visitor',$total_visits],";
+        $visit_person[] = $visitor;
+        $visit_times[] = intval($total_visits);
     }
     $j++;
 }
@@ -81,24 +94,27 @@ foreach ($visits as $visitor => $total_visits) {
             <?php echo $highest_str; ?>    
         </ol>
         <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart"]});
-            google.setOnLoadCallback(drawChart);
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Name', 'Spent'],
-<?php echo $highest_data_str; ?>
-                            ]);
-
-                            var options = {
-                                width: 370,
-                                legend:{position:'none'},
-                                chartArea: {'width': '80%', 'height': '80%'},
-                                colors:['#3366CC','#CC3300', '#FF9900']
-                            };
-
-                            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_1'));
-                            chart.draw(data, options);
+            $(document).ready(function(){
+                $.jqplot.config.enablePlugins = true;
+                var totals = <?php echo json_encode($highest_totals); ?>;
+                var person = <?php echo json_encode($highest_people); ?>;
+        
+                plot1 = $.jqplot('chart_div_1', [totals], {
+                    // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+                    animate: !$.jqplot.use_excanvas,
+                    seriesDefaults:{
+                        renderer:$.jqplot.BarRenderer,
+                        pointLabels: { show: true }
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: person
                         }
+                    },
+                    highlighter: { show: false }
+                });
+            });
         </script>
         <div id="chart_div_1" class="chart"></div>
     </div>
@@ -109,24 +125,27 @@ foreach ($visits as $visitor => $total_visits) {
             <?php echo $freq_str; ?>
         </ol>
         <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart"]});
-            google.setOnLoadCallback(drawChart);
-            function drawChart() {
-                var data2 = google.visualization.arrayToDataTable([
-                    ['Name', 'Visits'],
-<?php echo $freq_data_str; ?>
-                            ]);
-
-                            var options2 = {
-                                width: 370,
-                                legend:{position:'none'},
-                                chartArea: {'width': '80%', 'height': '80%'},
-                                colors:['#3366CC','#CC3300', '#FF9900']
-                            };
-
-                            var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
-                            chart2.draw(data2, options2);
+            $(document).ready(function(){
+                $.jqplot.config.enablePlugins = true;
+                var freq_total = <?php echo json_encode($freq_times); ?>;
+                var freq_person = <?php echo json_encode($freq_people); ?>;
+        
+                plot2 = $.jqplot('chart_div_2', [freq_total], {
+                    // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+                    animate: !$.jqplot.use_excanvas,
+                    seriesDefaults:{
+                        renderer:$.jqplot.BarRenderer,
+                        pointLabels: { show: true }
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: freq_person
                         }
+                    },
+                    highlighter: { show: false }
+                });
+            });
         </script>
         <div id="chart_div_2" class="chart"></div>
     </div>
@@ -137,24 +156,27 @@ foreach ($visits as $visitor => $total_visits) {
             <?php echo $visit_str; ?>
         </ol>
         <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart"]});
-            google.setOnLoadCallback(drawChart);
-            function drawChart() {
-                var data3 = google.visualization.arrayToDataTable([
-                    ['Name', 'Visits'],
-<?php echo $visit_data_str; ?>
-                            ]);
-
-                            var options3 = {
-                                width: 370,
-                                legend:{position:'none'},
-                                chartArea: {'width': '80%', 'height': '80%'},
-                                colors:['#3366CC','#CC3300', '#FF9900']
-                            };
-
-                            var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div_3'));
-                            chart3.draw(data3, options3);
+            $(document).ready(function(){
+                $.jqplot.config.enablePlugins = true;
+                var visits_total = <?php echo json_encode($visit_times); ?>;
+                var visits_person = <?php echo json_encode($visit_person); ?>;
+        
+                plot3 = $.jqplot('chart_div_3', [visits_total], {
+                    // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+                    animate: !$.jqplot.use_excanvas,
+                    seriesDefaults:{
+                        renderer:$.jqplot.BarRenderer,
+                        pointLabels: { show: true }
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: visits_person
                         }
+                    },
+                    highlighter: { show: false }
+                });
+            });
         </script>
         <div id="chart_div_3" class="chart"></div>
     </div>
